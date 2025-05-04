@@ -8,7 +8,16 @@ export async function GET() {
     await connectDB();
     console.log('Database connection successful');
     
-    // Try to create a test user
+    // For production, we'll just check the connection without creating a test user
+    if (process.env.NODE_ENV === 'production') {
+      return NextResponse.json({ 
+        success: true, 
+        message: 'Database connection successful',
+        environment: process.env.NODE_ENV
+      });
+    }
+    
+    // Only create test user in development
     console.log('Creating test user...');
     const testUser = await User.create({
       name: 'Test Admin',
@@ -21,7 +30,8 @@ export async function GET() {
     return NextResponse.json({ 
       success: true, 
       message: 'Database connection successful',
-      user: testUser 
+      user: testUser,
+      environment: process.env.NODE_ENV
     });
   } catch (error) {
     console.error('Database connection error:', error);
@@ -29,6 +39,7 @@ export async function GET() {
       success: false, 
       message: 'Database connection failed',
       error: error.message,
+      environment: process.env.NODE_ENV,
       stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     }, { status: 500 });
   }
