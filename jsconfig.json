@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
+    "baseUrl": ".", // allow relative paths from root
     "paths": {
-      "@/*": ["./src/*"]
+      "@auth/*": ["packages/auth/*"],
+      "@db/*": ["packages/db/*"],
+      "@config/*": ["packages/config/*"],
+      "@ui/*": ["packages/ui/*"],
+      "@utils/*": ["packages/utils/*"]
     }
   }
 }
