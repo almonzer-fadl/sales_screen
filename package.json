@@ -11,7 +11,9 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "start": "turbo run start",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "vercel-build": "turbo run build",
+    "vercel-dev": "turbo run dev"
   },
   "dependencies": {
     "@lucia-auth/adapter-mongodb": "^1.0.3",
