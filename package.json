@@ -11,7 +11,8 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "start": "turbo run start",
-    "lint": "turbo run lint",
+    "lint": "eslint . --ext .js,.jsx",
+    "lint:fix": "eslint . --ext .js,.jsx --fix",
     "vercel-build": "cd apps/admin && npm run build && cd ../supplier && npm run build && cd ../store && npm run build"
   },
   "dependencies": {
