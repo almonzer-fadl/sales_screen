@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "baseUrl": ".", // allow relative paths from root
+    "baseUrl": ".",
     "paths": {
-      "@auth/*": ["packages/auth/*"],
-      "@db/*": ["packages/db/*"],
-      "@config/*": ["packages/config/*"],
-      "@ui/*": ["packages/ui/*"],
-      "@utils/*": ["packages/utils/*"]
+      "@daqaiq/auth/*": ["packages/auth/*"],
+      "@daqaiq/db/*": ["packages/db/*"], 
+      "@daqaiq/ui/*": ["packages/ui/*"],
+      "@daqaiq/utils/*": ["packages/utils/*"]
     }
   }
 }

@@ -19,15 +19,15 @@
   ],
   "builds": [
     {
-      "src": "apps/admin/next.config.mjs",
+      "src": "apps/admin/package.json",
       "use": "@vercel/next"
     },
     {
-      "src": "apps/supplier/next.config.mjs",
+      "src": "apps/supplier/package.json",
       "use": "@vercel/next"
     },
     {
-      "src": "apps/store/next.config.mjs",
+      "src": "apps/store/package.json",
       "use": "@vercel/next"
     }
   ]
