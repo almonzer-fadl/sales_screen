@@ -5,10 +5,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="light">
-      <body>
+    <html lang="ar" dir="rtl" data-theme="light">
+      <body className="min-h-screen bg-gray-100">
         {children}
       </body>
     </html>
-  )
+  );
 } 
