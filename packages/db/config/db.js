@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.NODE_ENV === 'production' 
-  ? process.env.MONGODB_URI 
-  : process.env.MONGODB_URI || 'mongodb://localhost:27017/daqaiq';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable');
+  throw new Error(
+    'Please define the MONGODB_URI environment variable inside .env.local, .env.development.local, or .env.production.local'
+  );
 }
 
 let cached = global.mongoose;
@@ -25,7 +25,11 @@ export async function connectDB() {
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log('MongoDB connected successfully');
       return mongoose;
+    }).catch((error) => {
+      console.error('MongoDB connection error:', error);
+      throw error;
     });
   }
 

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useSession } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,7 +8,6 @@ import CsvUploader from '../components/CsvUploader';
 import { SUPPLIER_TRANSLATIONS as t } from '../../constants/translations';
 
 export default function InventoryManagement() {
-  const { data: session } = useSession();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
@@ -50,10 +48,8 @@ export default function InventoryManagement() {
   }, [filter, page]);
 
   useEffect(() => {
-    if (session?.user) {
-      fetchInventory();
-    }
-  }, [session, fetchInventory]);
+    fetchInventory();
+  }, [fetchInventory]);
 
   const handleStockUpdate = async (productId) => {
     try {
