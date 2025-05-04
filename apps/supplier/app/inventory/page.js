@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import Image from 'next/image';
-import CsvUploader from '../../components/CsvUploader';
+import CsvUploader from '../components/CsvUploader';
 import { SUPPLIER_TRANSLATIONS as t } from '../../constants/translations';
 
 export default function InventoryManagement() {
