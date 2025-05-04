@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@db": "*",
+    "db-lib": "*",
     "bcrypt": "^5.1.1",
     "daisyui": "^5.0.35",
     "lucia": "^3.2.2",
