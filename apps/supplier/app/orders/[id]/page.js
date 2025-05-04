@@ -1,42 +1,33 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { SUPPLIER_TRANSLATIONS as t } from '../../../../../packages/constants/translations';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function OrderDetails() {
-  const { data: session } = useSession();
-  const router = useRouter();
-  const params = useParams();
+export default function OrderDetail({ params }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [order, setOrder] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const fetchOrder = useCallback(async () => {
-    try {
-      const response = await fetch(`/api/supplier/orders/${params.id}`);
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'فشل في جلب بيانات الطلب');
-      }
-
-      setOrder(data.order);
-    } catch (error) {
-      console.error('Error fetching order:', error);
-      toast.error(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [params.id]);
 
   useEffect(() => {
-    if (session?.user && params?.id) {
-      fetchOrder();
+    fetchOrder();
+  }, [params.id]);
+
+  const fetchOrder = async () => {
+    try {
+      const response = await fetch(`/api/supplier/orders/${params.id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch order');
+      }
+      const data = await response.json();
+      setOrder(data);
+    } catch (error) {
+      toast.error(t.errorOccurred || 'An error occurred');
+    } finally {
+      setIsLoading(false);
     }
-  }, [session, params?.id, fetchOrder]);
+  };
 
   const handleStatusChange = async (newStatus) => {
     try {
@@ -94,7 +85,7 @@ export default function OrderDetails() {
     return statusMap[status] || status;
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
@@ -121,12 +112,13 @@ export default function OrderDetails() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <h1 className="text-2xl font-bold mb-6">{t.orderDetails || 'Order Details'}</h1>
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold text-gray-900">
             طلب #{order.orderNumber}
-          </h1>
+          </h2>
           <p className="mt-1 text-sm text-gray-500">
             تم الطلب في {formatDate(order.createdAt)}
           </p>

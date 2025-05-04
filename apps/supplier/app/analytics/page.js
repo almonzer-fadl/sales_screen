@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useSession } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 import { SUPPLIER_TRANSLATIONS as t } from '../../../../packages/constants/translations';
@@ -12,9 +11,8 @@ const DynamicCharts = dynamic(
   { ssr: false }
 );
 
-export default function SupplierAnalytics() {
-  const { data: session } = useSession();
-  const [loading, setLoading] = useState(true);
+export default function Analytics() {
+  const [isLoading, setIsLoading] = useState(true);
   const [period, setPeriod] = useState('30d');
   const [analytics, setAnalytics] = useState({
     salesOverview: {
@@ -30,7 +28,7 @@ export default function SupplierAnalytics() {
 
   const fetchAnalytics = useCallback(async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       console.log('Fetching analytics...');
       const response = await fetch(`/api/supplier/analytics?period=${period}`);
       if (!response.ok) throw new Error(t.errorOccurred);
@@ -66,15 +64,13 @@ export default function SupplierAnalytics() {
       console.error('Error fetching analytics:', error);
       toast.error(error.message);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, [period]);
 
   useEffect(() => {
-    if (session) {
-      fetchAnalytics();
-    }
-  }, [session, fetchAnalytics]);
+    fetchAnalytics();
+  }, [fetchAnalytics]);
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('ar-SA', {
@@ -83,7 +79,7 @@ export default function SupplierAnalytics() {
     }).format(amount);
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
