@@ -4,11 +4,11 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 import dynamic from 'next/dynamic';
-import { SUPPLIER_TRANSLATIONS as t } from '../../constants/translations';
+import { SUPPLIER_TRANSLATIONS as t } from '../../../../packages/constants/translations';
 
 // Dynamically import Chart.js components
 const DynamicCharts = dynamic(
-  () => import('../../components/DynamicCharts'),
+  () => import('../../../../packages/ui/components/DynamicCharts'),
   { ssr: false }
 );
 
