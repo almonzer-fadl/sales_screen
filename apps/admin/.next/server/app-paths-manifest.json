@@ -1,5 +1,4 @@
 {
-  "/api/test-db/route": "app/api/test-db/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
+  "/_not-found": "app/_not-found.js",
   "/page": "app/page.js"
 }

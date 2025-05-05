@@ -2,11 +2,22 @@
   "name": "daqaiq-v2",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build:admin": "cd apps/admin && npm run build",
+    "build:supplier": "cd apps/supplier && npm run build",
+    "build:store": "cd apps/store && npm run build",
+    "build": "turbo run build",
+    "dev:admin": "cd apps/admin && npm run dev",
+    "dev:supplier": "cd apps/supplier && npm run dev",
+    "dev:store": "cd apps/store && npm run dev",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{js,jsx,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules"
   },
   "dependencies": {
     "daisyui": "^5.0.35",
@@ -20,6 +31,9 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "postcss": "^8.5.3",
-    "tailwindcss": "^3.4.1"
-  }
+    "tailwindcss": "^3.4.1",
+    "prettier": "^3.1.0",
+    "turbo": "latest"
+  },
+  "packageManager": "npm@10.2.4"
 }
