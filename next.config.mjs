@@ -46,6 +46,41 @@ const nextConfig = {
     ]
   },
   
+  // Configure rewrites for subdomains
+  async rewrites() {
+    return {
+      beforeFiles: [
+        // Admin app rewrites
+        {
+          source: '/auth/:path*',
+          has: [
+            {
+              type: 'host',
+              value: 'admin.:domain'
+            }
+          ],
+          destination: '/admin/auth/:path*'
+        },
+        // Supplier app rewrites
+        {
+          source: '/auth/:path*',
+          has: [
+            {
+              type: 'host',
+              value: 'supplier.:domain'
+            }
+          ],
+          destination: '/supplier/auth/:path*'
+        },
+        // Store app rewrites (default)
+        {
+          source: '/auth/:path*',
+          destination: '/store/auth/:path*'
+        }
+      ]
+    }
+  },
+  
   // Configure redirects for subdomains
   async redirects() {
     return [

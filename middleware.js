@@ -17,7 +17,7 @@ export function middleware(request) {
     
     // Check for session on other routes
     if (!request.cookies.has('auth_session')) {
-      return NextResponse.redirect(new URL('/auth/login', request.url))
+      return NextResponse.redirect(new URL('/auth/login', `https://${hostname}`))
     }
     
     return NextResponse.rewrite(new URL(`/admin${pathname}`, request.url))
@@ -31,7 +31,7 @@ export function middleware(request) {
     
     // Check for session on other routes
     if (!request.cookies.has('auth_session')) {
-      return NextResponse.redirect(new URL('/auth/login', request.url))
+      return NextResponse.redirect(new URL('/auth/login', `https://${hostname}`))
     }
     
     return NextResponse.rewrite(new URL(`/supplier${pathname}`, request.url))
