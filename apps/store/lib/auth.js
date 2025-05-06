@@ -1,12 +1,12 @@
 import { lucia } from 'lucia';
-import { nextjs_future } from 'lucia/middleware';
+import { nextjs } from 'lucia/middleware';
 import { mongoose } from '@lucia-auth/adapter-mongodb';
 import { connectDB } from './db';
 
 // Initialize Lucia auth
 const auth = lucia({
   env: process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV',
-  middleware: nextjs_future(),
+  middleware: nextjs(),
   sessionCookie: {
     expires: false,
   },
