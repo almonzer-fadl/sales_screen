@@ -1,5 +1,5 @@
 import { lucia } from 'lucia';
-import { nextjs } from 'lucia/middleware';
+import { nextjs } from 'lucia/nextjs';
 import { mongoose } from '@lucia-auth/adapter-mongodb';
 import { connectDB } from './db';
 
