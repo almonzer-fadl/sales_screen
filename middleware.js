@@ -10,22 +10,38 @@ export function middleware(request) {
   
   // Handle different subdomains
   if (subdomain === 'admin') {
-    // If not logged in and not on login page, redirect to login
-    if (!pathname.startsWith('/admin/auth') && !request.cookies.has('auth_session')) {
-      return NextResponse.redirect(new URL('/admin/auth/login', request.url))
+    // Allow access to auth routes without session
+    if (pathname.startsWith('/auth')) {
+      return NextResponse.rewrite(new URL(`/admin${pathname}`, request.url))
     }
+    
+    // Check for session on other routes
+    if (!request.cookies.has('auth_session')) {
+      return NextResponse.redirect(new URL('/auth/login', request.url))
+    }
+    
     return NextResponse.rewrite(new URL(`/admin${pathname}`, request.url))
   }
   
   if (subdomain === 'supplier') {
-    // If not logged in and not on login page, redirect to login
-    if (!pathname.startsWith('/supplier/auth') && !request.cookies.has('auth_session')) {
-      return NextResponse.redirect(new URL('/supplier/auth/login', request.url))
+    // Allow access to auth routes without session
+    if (pathname.startsWith('/auth')) {
+      return NextResponse.rewrite(new URL(`/supplier${pathname}`, request.url))
     }
+    
+    // Check for session on other routes
+    if (!request.cookies.has('auth_session')) {
+      return NextResponse.redirect(new URL('/auth/login', request.url))
+    }
+    
     return NextResponse.rewrite(new URL(`/supplier${pathname}`, request.url))
   }
   
   // Default to store app (www or no subdomain)
+  if (pathname.startsWith('/auth')) {
+    return NextResponse.rewrite(new URL(`/store${pathname}`, request.url))
+  }
+  
   return NextResponse.rewrite(new URL(`/store${pathname}`, request.url))
 }
 
