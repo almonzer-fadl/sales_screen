@@ -16,7 +16,7 @@
     "tailwindcss": "^3.3.0",
     "daisyui": "^4.7.2",
     "lucia": "^3.2.2",
-    "@lucia-auth/adapter-mongodb": "^3.0.0",
+    "@lucia-auth/adapter-mongodb": "^2.0.0",
     "mongoose": "^8.14.1",
     "mongodb": "^6.16.0"
   },
