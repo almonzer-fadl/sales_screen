@@ -18,12 +18,12 @@ export default function SupplierLoginPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('/api/auth/supplier/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, role: 'supplier' }),
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
@@ -102,7 +102,7 @@ export default function SupplierLoginPage() {
             </div>
 
             <div className="text-sm">
-              <Link href="/auth/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
+              <Link href="/(auth)/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
                 Forgot your password?
               </Link>
             </div>
